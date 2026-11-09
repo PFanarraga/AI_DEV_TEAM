@@ -17,8 +17,7 @@ Instalar o adaptar AI DEV TEAM a un IDE, editor, terminal o asistente.
 11. Cerrar la fase de integración y esperar el prompt de inicio del proyecto.
 
 ## Prompts oficiales
-- Fase 1, configurar asistente: `prompts/01-configure-assistant.md`.
-- Fase 2, iniciar proyecto: `prompts/02-start-project.md`.
+Los prompts de las fases 1 (configurar asistente) y 2 (iniciar proyecto) se mantienen en el repositorio central AI_DEV_TEAM. No se copian al proyecto junto con el núcleo; consulta `prompts/01-configure-assistant.md` y `prompts/02-start-project.md` en el repositorio fuente.
 
 ## Gate
 No afirmar compatibilidad completa basándose solo en que el IDE puede abrir Markdown. Distinguir lectura de instrucciones, carga de Skills, delegación real y acceso a herramientas. La instalación/configuración no autoriza a comenzar el desarrollo del producto.

@@ -105,7 +105,7 @@ def main() -> int:
         shutil.copy2(src, dest)
 
     print(f"AI DEV TEAM core installed. Copied {len(pending)} file(s); kept {len(conflicts)} conflict(s).")
-    print("Next: follow docs/PROJECT-BOOTSTRAP.md and run prompts/01-configure-assistant.md.")
+    print("Next: consult docs/PROJECT-BOOTSTRAP.md and prompts/01-configure-assistant.md in the AI_DEV_TEAM source repository.")
     return 0
 
 

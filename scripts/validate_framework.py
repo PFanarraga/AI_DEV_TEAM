@@ -25,6 +25,7 @@ def main() -> None:
         ROOT / "prompts" / "01-configure-assistant.md",
         ROOT / "prompts" / "02-start-project.md",
         ROOT / "scripts" / "install_ai_dev_team.py",
+        ROOT / "tests" / "test_install_ai_dev_team.py",
         ROOT / "templates" / "agent-task.md",
         ROOT / "CLAUDE.md", ROOT / "GEMINI.md",
         ROOT / ".github" / "copilot-instructions.md",
@@ -66,8 +67,8 @@ def main() -> None:
         fail(f"Expected 14 assistant integration guides, found {len(guides)}")
     for guide in guides:
         body = guide.read_text(encoding="utf-8")
-        if "Prompt base" not in body:
-            fail(f"Missing assistant base prompt: {guide.relative_to(ROOT)}")
+        if body.count("```") < 2:
+            fail(f"Missing fenced base prompt: {guide.relative_to(ROOT)}")
     index = (guides_dir / "README.md").read_text(encoding="utf-8")
     for guide in guides:
         if guide.name not in index:
@@ -80,7 +81,7 @@ def main() -> None:
 
     for prompt_name in ("01-configure-assistant.md", "02-start-project.md"):
         prompt = (ROOT / "prompts" / prompt_name).read_text(encoding="utf-8")
-        if "AI DEV TEAM" not in prompt or "INSTRUCCIONES" not in prompt and "INSTRUCCIONES PARA EL DIRECTOR" not in prompt:
+        if "AI DEV TEAM" not in prompt or ("INSTRUCCIONES" not in prompt and "INSTRUCCIONES PARA EL DIRECTOR" not in prompt):
             fail(f"Prompt missing required instructions: prompts/{prompt_name}")
 
     for filename in ("AGENTS.md", "README.md", "TUTORIAL_MAESTRO_AI_DEV_TEAM.md"):

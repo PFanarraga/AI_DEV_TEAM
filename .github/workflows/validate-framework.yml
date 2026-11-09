@@ -16,3 +16,5 @@ jobs:
           python-version: "3.x"
       - name: Validate framework
         run: python scripts/validate_framework.py
+      - name: Test safe installer
+        run: python -m unittest discover -s tests -v
