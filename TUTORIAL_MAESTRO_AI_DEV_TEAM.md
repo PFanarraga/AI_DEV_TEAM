@@ -1,50 +1,63 @@
 # Tutorial maestro de AI DEV TEAM
 
 ## 1. Qué es
-AI DEV TEAM organiza el trabajo de ingeniería en 12 agentes, 41 Skills, 5 workflows y 4 plantillas.
+AI DEV TEAM es un framework portable con 18 agentes, 57 Skills, 8 workflows y plantillas. El usuario trabaja con el asistente que ya tiene en su IDE, editor, terminal o plataforma. Ese asistente asume el rol Director y coordina especialistas.
 
-**Importante:** los perfiles Markdown no son procesos ejecutables. Delegación automática, ejecución paralela, memoria compartida y herramientas requieren un runtime. La arquitectura objetivo está en .agents/runtime/ORCHESTRATION.md.
+Los perfiles Markdown son instrucciones y contratos, no procesos autónomos. La delegación paralela depende de que el asistente anfitrión soporte subagentes reales. Sin esa capacidad, el Director coordina por etapas secuenciales.
 
 ## 2. Instalar en un proyecto
 1. Copia AGENTS.md a la raíz del proyecto.
 2. Copia la carpeta completa .agents/ a esa misma raíz.
-3. Conserva los nombres y la jerarquía internos.
-4. Abre el proyecto en VS Code, Cursor, Windsurf, Android Studio u otro entorno compatible.
-5. Comprueba que el asistente puede leer AGENTS.md y .agents/.
+3. Conserva nombres y jerarquía.
+4. Consulta docs/IDE-COMPATIBILITY.md y adapters/README.md.
+5. Configura el asistente anfitrión para cargar las instrucciones del repositorio.
+6. Comprueba que puede leer AGENTS.md y los perfiles solicitados.
 
-Git y GitHub admiten carpetas que comienzan con punto. No renombres .agents/ a agents/.
+Git y GitHub admiten carpetas que comienzan con punto. No renombres .agents/.
 
 ## 3. Activar al Director
-Lee AGENTS.md y .agents/agents/director.md. Actúa como Director de AI DEV TEAM. Inspecciona estructura, stack, scripts, pruebas y estado del repositorio. Analiza mi solicitud, identifica riesgos, selecciona especialistas y Skills, presenta un plan con criterios de aceptación y espera mi aprobación. No inventes resultados ni afirmes delegación real si tu entorno no la soporta.
+Usa el prompt de adapters/README.md. El Director inspecciona estructura, stack, scripts, pruebas y estado del repositorio; identifica riesgos; selecciona agentes y Skills; presenta plan y criterios; y solicita aprobación cuando corresponda.
 
-## 4. Invocar especialistas
-- Arquitectura: .agents/agents/architect.md y .agents/skills/backend/database-design-migrations/SKILL.md
-- Desarrollo fullstack: .agents/agents/developer.md y .agents/skills/frontend/nextjs-react-fullstack/SKILL.md
-- Android: .agents/agents/developer.md y .agents/skills/mobile/android-native-kotlin/SKILL.md
-- Desktop: .agents/agents/desktop-developer.md y .agents/skills/desktop/desktop-electron-tauri/SKILL.md
-- Datos: .agents/agents/data-engineer.md y .agents/skills/data/data-pipelines-etl-elt/SKILL.md
-- Videojuegos/XR: .agents/agents/game-developer.md y .agents/skills/gaming-xr/game-engine-unity-godot/SKILL.md
-- QA: .agents/agents/tester.md y .agents/skills/core/unit-testing/SKILL.md
-- Seguridad: .agents/agents/security.md y .agents/skills/core/penetration-testing-owasp-top10/SKILL.md
-- Rendimiento: .agents/agents/performance.md y .agents/skills/core/performance-basics/SKILL.md
-- UX: .agents/agents/ui-ux.md y .agents/skills/core/ui-accessibility/SKILL.md
+## 4. Orquestación
+- El usuario conversa con el asistente anfitrión.
+- El Director define tareas y selecciona especialistas.
+- Si el host ofrece subagentes reales, delega trabajos independientes.
+- Si no, coordina cada especialista secuencialmente, sin fingir concurrencia.
+- El asistente anfitrión ejecuta las herramientas que tenga habilitadas.
+- El Director integra y verifica los resultados.
+
+## 5. Especialistas
+- Producto: .agents/agents/product-manager.md
+- Arquitectura: .agents/agents/architect.md
+- Frontend/fullstack: .agents/agents/developer.md
+- Backend: .agents/agents/backend-engineer.md
+- Android/iOS/multiplataforma: .agents/agents/developer.md + Skills mobile/
+- Desktop: .agents/agents/desktop-developer.md
+- Datos: .agents/agents/data-engineer.md
+- Videojuegos/XR: .agents/agents/game-developer.md
+- QA y automatización: .agents/agents/tester.md y qa-automation.md
+- Seguridad: .agents/agents/security.md
+- Rendimiento: .agents/agents/performance.md
+- DevOps/SRE: .agents/agents/devops-sre.md
+- IA/ML: .agents/agents/ai-ml-engineer.md
+- Integración IDE/MCP: .agents/agents/platform-integration.md
+- UX: .agents/agents/ui-ux.md
 - Diseño visual: .agents/agents/visual-designer.md
-- Investigación: .agents/agents/researcher.md y .agents/skills/core/project-discovery/SKILL.md
+- Investigación: .agents/agents/researcher.md
 
-Si el IDE no dispone de subagentes reales, ejecuta los perfiles secuencialmente o en conversaciones separadas. No confundas esa coordinación con concurrencia autónoma.
+## 6. Workflows
+- Descubrimiento: .agents/workflows/product-discovery.md
+- Nueva función: .agents/workflows/new-feature.md
+- Corrección: .agents/workflows/bug-fix.md
+- Refactorización: .agents/workflows/refactoring.md
+- Seguridad: .agents/workflows/security-audit.md
+- Desarrollo multiagente: .agents/workflows/multi-agent-development.md
+- Integración IDE: .agents/workflows/ide-integration.md
+- Despliegue: .agents/workflows/deployment.md
 
-## 5. Workflows
-- .agents/workflows/new-feature.md
-- .agents/workflows/bug-fix.md
-- .agents/workflows/refactoring.md
-- .agents/workflows/security-audit.md
-- .agents/workflows/deployment.md
+## 7. Seguridad y calidad
+Nunca guardes secretos en el repositorio. Verifica autorización en servidor y base de datos. Usa unidades menores enteras o decimales exactos para dinero. Añade pruebas de regresión. Ejecuta comandos reales y conserva evidencias. Solicita aprobación para acciones destructivas, externas y productivas.
 
-Antes de desplegar, borrar datos, cambiar permisos o ejecutar migraciones productivas, solicita aprobación explícita.
-
-## 6. Seguridad y calidad
-Nunca guardes secretos en el repositorio. Verifica autorización en servidor y base de datos. Usa unidades menores enteras o decimales exactos para dinero. Añade pruebas de regresión. Ejecuta comandos reales y conserva evidencias. No declares WCAG AAA usando solo umbrales AA. La Skill AppSec usa OWASP Top 10:2025.
-
-## 7. Validación
+## 8. Validación
 Desde la raíz ejecuta: python scripts/validate_framework.py
-La validación comprueba estructura, inventario y referencias de Skills. No compila ni prueba aplicaciones externas.
+La validación comprueba estructura, inventario y referencias documentales. No compila aplicaciones externas ni ejecuta agentes.
