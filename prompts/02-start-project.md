@@ -6,7 +6,7 @@ Completa la descripción de tu idea y pega este prompt después de haber termina
 Quiero iniciar un proyecto nuevo utilizando AI DEV TEAM. Actúa como asistente anfitrión y Director del equipo.
 
 IDEA / DESCRIPCIÓN DEL PROYECTO
-[ESCRIBE AQUÍ QUÉ QUIERES CREAR, QUÉ PROBLEMA RESUELVE Y PARA QUIÉN.]
+[ESCRIBE AQUÍ QUÉ QUIERES CREAR, QUÉ PROBLEMA RESUELVE Y PARA QUIÉN. Si utilizaste Prompt 0, pega aquí el bloque completo "PROMPT INICIAL PARA AI DEV TEAM" que generó el consultor. Ese bloque aporta el contexto del producto, pero no sustituye las instrucciones de este Prompt 2.]
 
 RESULTADO QUE BUSCO
 [DESCRIBE EL RESULTADO DESEADO. Si no lo sabes, ayúdame a definirlo.]
