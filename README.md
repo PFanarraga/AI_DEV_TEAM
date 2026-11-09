@@ -8,37 +8,37 @@ El usuario trabaja con el asistente que ya utiliza en su IDE, editor, terminal o
 El framework no exige un motor ejecutable propio. La delegación paralela, memoria, ejecución de herramientas y aprobaciones dependen de las capacidades del asistente anfitrión. Si no existen subagentes reales, el Director coordina el trabajo secuencialmente y lo informa con transparencia.
 
 ## Estructura
-- AGENTS.md: reglas globales, protocolo de orquestación e inventario.
+- AGENTS.md: reglas globales y protocolo de orquestación.
 - .agents/agents/: 18 perfiles especialistas.
 - .agents/skills/: 57 Skills organizadas por dominio.
 - .agents/workflows/: 8 procesos reutilizables.
 - .agents/runtime/: especificación de arquitectura para un runtime opcional.
-- adapters/: guía para integrar distintos IDEs y asistentes.
-- docs/IDE-COMPATIBILITY.md: estrategia de portabilidad.
+- adapters/: guía y prompt universal de integración.
+- docs/IDE-COMPATIBILITY.md: estrategia y matriz de portabilidad.
+- CLAUDE.md, GEMINI.md, .cursor/, .github/ y .junie/: adaptadores incluidos para hosts compatibles.
 - templates/: solicitudes, handoffs, ADR y pull requests.
 - scripts/: validaciones del framework.
-- .github/workflows/: validación automática.
 
 ## Inicio rápido
 1. Copia AGENTS.md y la carpeta completa .agents/ a la raíz del proyecto.
-2. Abre el proyecto en tu IDE, editor o entorno de desarrollo.
-3. Configura el asistente para que lea AGENTS.md. Si admite archivos de instrucciones nativos, usa el adaptador correspondiente.
-4. Envía el prompt de activación que aparece en adapters/README.md.
-5. El Director inspeccionará el proyecto y propondrá especialistas, Skills, plan y criterios.
+2. Copia también el adaptador nativo del asistente que uses, si corresponde.
+3. Abre el proyecto en el IDE o entorno.
+4. Verifica que el asistente lea las instrucciones.
+5. Activa el Director con el prompt de adapters/README.md.
 6. Aprueba el plan antes de cambios amplios o destructivos.
 
 ## Portabilidad
-El núcleo común es Markdown + rutas + convenciones. Consulta docs/IDE-COMPATIBILITY.md. No existe un formato único que garantice que todos los IDEs carguen Skills, subagentes y herramientas de la misma manera. Los adaptadores deben verificar las capacidades reales de cada host y nunca sobrescribir configuración existente.
+El núcleo común es Markdown + rutas + convenciones. Hay adaptadores para Copilot, Codex, Cursor, Claude Code, Gemini CLI y Junie. Para otros entornos, consulta docs/IDE-COMPATIBILITY.md y configura el formato nativo correspondiente.
 
-MCP puede conectar herramientas en clientes compatibles; no sustituye el soporte de subagentes, permisos o ejecución del host.
+No existe un formato único que garantice que todos los IDEs carguen Skills, subagentes y herramientas de la misma manera. MCP facilita interoperabilidad de herramientas, no delegación universal.
 
 ## Validación
 Ejecuta desde la raíz: python scripts/validate_framework.py
 
-La validación automática comprueba estructura, inventario y referencias documentales. No ejecuta agentes ni prueba aplicaciones construidas con el framework.
+Comprueba estructura, inventario y referencias documentales. No ejecuta agentes ni prueba aplicaciones externas.
 
 ## Alcance honesto
-Este repositorio proporciona perfiles, instrucciones, Skills, workflows y guías de integración. No incluye todavía un runtime autónomo propio. El objetivo es que el Director orqueste usando las capacidades disponibles del asistente anfitrión, sin atarse a un IDE o proveedor concreto.
+Este repositorio proporciona perfiles, instrucciones, Skills, workflows y adaptadores. No incluye todavía un runtime autónomo propio. El Director orquesta usando las capacidades del asistente anfitrión.
 
 ## Seguridad y licencia
 Nunca subas secretos. No asumas licencia de código abierto hasta que el repositorio incluya una licencia explícita.

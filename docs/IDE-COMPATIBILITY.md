@@ -1,63 +1,67 @@
 # Portabilidad de AI DEV TEAM entre IDEs y asistentes
 
 ## Objetivo
-Usar el mismo equipo de agentes con el asistente que el usuario prefiera, sin hacer que el framework dependa de un único editor, proveedor de modelos o runtime propio.
+Usar el mismo equipo de agentes con el asistente que el usuario prefiera, sin depender de un único editor, proveedor de modelos o runtime propio.
 
-## Arquitectura portable
-La fuente de verdad es:
-- AGENTS.md: reglas generales y protocolo.
-- .agents/agents/: perfiles de especialistas.
+## Fuente canónica
+- AGENTS.md: reglas y protocolo.
+- .agents/agents/: perfiles.
 - .agents/skills/: procedimientos técnicos.
 - .agents/workflows/: procesos.
-- templates/: formatos de solicitud y handoff.
+- templates/: formatos de tareas y handoffs.
 
-El asistente anfitrión lee esta fuente y asume el rol Director. Los adaptadores específicos solo enlazan el host con la fuente canónica.
+El asistente anfitrión lee esta fuente y asume el rol Director. Los adaptadores son archivos nativos del host que apuntan a esa fuente.
+
+## Adaptadores implementados en este repositorio
+| Host | Archivo | Estado |
+|---|---|---|
+| GitHub Copilot (VS Code / Visual Studio / JetBrains con Copilot) | .github/copilot-instructions.md | Archivo creado; validar en cada host |
+| OpenAI Codex | AGENTS.md | Convención de instrucciones |
+| Cursor | AGENTS.md y .cursor/rules/ai-dev-team.mdc | Archivos creados |
+| Claude Code | CLAUDE.md | Archivo creado |
+| Gemini CLI | GEMINI.md | Archivo creado |
+| Junie | .junie/AGENTS.md | Archivo creado |
+
+La existencia del archivo no certifica que una versión específica lo cargue correctamente. Ejecutar checklist de humo en la instalación real.
+
+## Familias adicionales
+Visual Studio, JetBrains IDEs, Android Studio, Eclipse, NetBeans, Xcode, Windsurf, Zed, Cline, Roo Code, Continue, Aider, terminales y entornos remotos. Si el host no tiene adaptador implementado, se configura su archivo de instrucciones nativo o se utiliza el prompt universal de adapters/README.md.
 
 ## Niveles de compatibilidad
-1. **Nivel A, instrucciones:** el host puede leer AGENTS.md o un archivo nativo que lo referencie.
-2. **Nivel B, Skills:** el host puede descubrir/cargar archivos de Skills o el Director puede leerlos bajo demanda.
-3. **Nivel C, herramientas:** el host tiene terminal, filesystem, Git, navegador u otras herramientas autorizadas.
-4. **Nivel D, subagentes:** el host permite crear/delegar agentes independientes y recibir resultados.
-5. **Nivel E, orquestación avanzada:** hay memoria persistente, estado, cancelación, ejecución aislada y permisos auditables.
+A. Instrucciones: carga AGENTS.md o un archivo nativo.
+B. Skills: descubre o consulta archivos SKILL.md bajo demanda.
+C. Herramientas: terminal, filesystem, Git, navegador o APIs con permisos.
+D. Subagentes: delega agentes independientes y recibe resultados.
+E. Orquestación avanzada: memoria persistente, estado, cancelación, ejecución aislada y auditoría.
 
-No asumir que alcanzar un nivel implica los siguientes. Muchos entornos pueden operar útilmente en niveles A-C. Los niveles D-E dependen del producto, versión, configuración y plan.
+Un nivel no implica los siguientes. Muchos entornos funcionan en A-C. D-E dependen de producto, versión, configuración y permisos.
 
-## Familias de entornos a evaluar
-- IDEs generales: Visual Studio Code, Visual Studio, JetBrains IDEs (IntelliJ IDEA, Android Studio, PyCharm, WebStorm, Rider), Eclipse, NetBeans y Xcode.
-- Editores AI-first: Cursor, Windsurf, Zed y otros.
-- Asistentes de código: GitHub Copilot, Claude Code, Gemini CLI, Cline, Roo Code, Continue, Aider y herramientas equivalentes.
-- Terminales y entornos remotos: shells locales, SSH, devcontainers, Codespaces y entornos cloud.
-- Plataformas de desarrollo web y low-code: cuando permitan instrucciones del proyecto, exportación de código o herramientas autorizadas.
-
-Esta lista indica objetivos de evaluación, no certifica compatibilidad automática ni integración probada con cada producto.
-
-## Estrategia de adaptadores
+## Estrategia
 - Mantener un único núcleo canónico.
 - Añadir archivos nativos solo cuando el host los necesite.
-- Usar instrucciones nativas para apuntar a AGENTS.md y activar al Director.
-- Cargar Skills bajo demanda según tarea.
-- Conectar MCP solo si el host lo soporta y existe un servidor confiable.
-- Delegar solo si el host ofrece subagentes reales.
-- No sobrescribir reglas, permisos o configuraciones existentes.
-- Mantener versiones y pruebas de instalación por adaptador.
+- No sobrescribir configuraciones existentes.
+- Consultar documentación oficial vigente antes de crear nuevos adaptadores.
+- Cargar Skills bajo demanda.
+- Usar MCP solo cuando el host lo soporte y exista un servidor confiable.
+- Delegar solo si hay subagentes reales.
+- Mantener pruebas de instalación y actualización.
 
-## Límites importantes
-- No existe un estándar universal que haga que todos los IDEs lean la carpeta .agents/ automáticamente.
-- AGENTS.md es una convención útil, pero cada producto puede requerir una ruta o archivo propio.
-- MCP normaliza acceso a herramientas, no el formato de agentes, memoria o delegación.
-- Las capacidades cambian entre versiones y configuraciones; verificar documentación oficial antes de instalar.
-- Un asistente que solo puede conversar y leer archivos no puede ejecutar herramientas ni delegar tareas reales.
-
-## Checklist de certificación por host
-- [ ] Producto, versión y sistema operativo documentados.
-- [ ] Archivo de instrucciones nativo identificado.
-- [ ] AGENTS.md y Director se cargan correctamente.
-- [ ] Skills relevantes pueden consultarse.
+## Checklist por host
+- [ ] Producto, versión y sistema operativo.
+- [ ] Archivo nativo y método de carga confirmados.
+- [ ] AGENTS.md y Director cargados.
+- [ ] Skills pertinentes consultables.
 - [ ] Herramientas probadas con permisos mínimos.
-- [ ] Subagentes probados de verdad o marcados como no disponibles.
-- [ ] Configuración existente preservada.
+- [ ] Subagentes probados realmente o marcados no disponibles.
+- [ ] Configuración previa preservada.
 - [ ] Instalación, actualización y desinstalación documentadas.
-- [ ] Pruebas de humo reproducibles y evidencia guardada.
+- [ ] Pruebas de humo reproducibles.
 
-## Referencias de configuración
-Consulta adapters/README.md. Los adaptadores deben verificarse contra la documentación oficial vigente de cada host antes de publicar compatibilidad.
+## Documentación oficial de referencia
+- VS Code custom instructions: https://code.visualstudio.com/docs/agent-customization/custom-instructions
+- Copilot custom instructions: https://docs.github.com/en/copilot/how-tos/copilot-in-your-ide/customize-copilot/configure-custom-instructions/add-repository-instructions-in-your-ide
+- Cursor rules: https://prod.cursor.com/docs/rules
+- Gemini CLI GEMINI.md: https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/gemini-md.md
+- Junie guidelines: https://junie.jetbrains.com/docs/guidelines-and-memory.html
+
+Revisar estas fuentes periódicamente porque los formatos y capacidades evolucionan.

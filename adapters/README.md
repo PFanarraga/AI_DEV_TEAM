@@ -1,39 +1,49 @@
 # Adaptadores de AI DEV TEAM
 
 ## Propósito
-Conectar la fuente canónica de AI DEV TEAM con distintos IDEs, editores, asistentes y terminales. No se requiere motor propio para utilizar el framework: el asistente anfitrión actúa como Director.
+Conectar la fuente canónica de AI DEV TEAM con distintos IDEs, editores, asistentes y terminales. No se requiere motor propio: el asistente anfitrión actúa como Director.
 
-## Instalación base
+## Núcleo
 Copia a la raíz del proyecto:
 - AGENTS.md
 - .agents/
 
-No renombres .agents/. Git admite directorios ocultos.
+Conserva la jerarquía y no renombres .agents/.
+
+## Adaptadores incluidos y documentados
+Este repositorio incluye archivos nativos para:
+- GitHub Copilot: .github/copilot-instructions.md
+- OpenAI Codex y hosts compatibles con AGENTS.md: AGENTS.md
+- Cursor: .cursor/rules/ai-dev-team.mdc y AGENTS.md
+- Claude Code: CLAUDE.md
+- Gemini CLI: GEMINI.md
+- Junie: .junie/AGENTS.md
+
+Los archivos son adaptadores ligeros. En proyectos existentes, copia o combina solo el adaptador del host que realmente uses. No sobrescribas reglas locales existentes.
 
 ## Prompt universal de activación
-Pega este prompt en el asistente que uses:
+Cuando el host no detecte automáticamente sus instrucciones, pega este prompt:
 
-> Lee AGENTS.md y actúa como Director de AI DEV TEAM. Inspecciona el repositorio, el estado de Git, el stack, las instrucciones del host y las herramientas que realmente tienes disponibles. Consulta .agents/agents/director.md. Clasifica mi solicitud, selecciona solo los especialistas necesarios y lee sus perfiles y Skills relevantes. Antes de modificar archivos, presenta objetivo, alcance, tareas, dependencias, riesgos y criterios de aceptación. Si tienes subagentes reales, puedes delegar tareas independientes y reportar qué delegaste. Si no tienes subagentes, coordina a los especialistas secuencialmente sin simular procesos paralelos. No inventes herramientas, resultados, pruebas ni capacidades. Conserva mis cambios y solicita aprobación antes de operaciones destructivas, externas o productivas. Al finalizar, revisa el diff, ejecuta las pruebas disponibles y reporta comandos y resultados reales.
+> Lee AGENTS.md y actúa como Director de AI DEV TEAM. Inspecciona el repositorio, estado de Git, stack, instrucciones del host y herramientas disponibles. Consulta .agents/agents/director.md. Clasifica mi solicitud, selecciona solo especialistas y Skills pertinentes y presenta objetivo, alcance, tareas, dependencias, riesgos y criterios de aceptación antes de modificar. Si tienes subagentes reales, delega tareas independientes y reporta qué delegaste. Si no, coordina secuencialmente sin simular procesos paralelos. No inventes herramientas ni resultados. Conserva mis cambios y pide aprobación para operaciones destructivas, externas o productivas. Revisa el diff, ejecuta pruebas disponibles y reporta comandos y resultados reales.
 
-## Configuración por host
-1. Identifica el archivo de instrucciones nativo del producto y su versión.
-2. Crea o actualiza ese archivo para que haga referencia a AGENTS.md y active al Director.
-3. Si el producto soporta reglas por proyecto, evita cambiar reglas globales del usuario.
-4. Si ya existe configuración, no la reemplaces. Presenta un bloque de integración para combinar manualmente.
-5. Carga Skills bajo demanda, no todo el catálogo en cada petición.
-6. Habilita MCP y subagentes solo si el host los soporta y el usuario los autoriza.
+## Otros IDEs, editores y plataformas
+Para Visual Studio, JetBrains IDEs sin Junie/Copilot, Android Studio sin Junie/Copilot, Eclipse, NetBeans, Xcode, Windsurf, Zed, Cline, Roo Code, Continue, Aider, otros agentes CLI y entornos cloud:
+1. Consulta docs/IDE-COMPATIBILITY.md.
+2. Verifica la documentación oficial y versión del host.
+3. Configura el archivo de instrucciones nativo del host para cargar AGENTS.md y activar al Director.
+4. Si el host no carga AGENTS.md, usa el prompt universal o un adaptador específico revisado.
+5. Verifica carga de Skills, herramientas y delegación real.
 
-## Hosts objetivo
-La guía de compatibilidad está en docs/IDE-COMPATIBILITY.md. Incluye IDEs de JetBrains, VS Code, Visual Studio, Xcode, Eclipse, editores AI-first, asistentes de terminal y entornos cloud. La lista es una matriz de objetivos, no una certificación de integración de cada producto.
+La lista de productos no significa que todos tengan un adaptador implementado. No existe una configuración única que active automáticamente todos los IDEs.
 
-## Qué significa "funciona"
+## Niveles de funcionamiento
 - Instrucciones cargadas: el host leyó el contexto.
-- Skills accesibles: el Director puede leer las Skills requeridas.
+- Skills accesibles: el Director puede consultar Skills pertinentes.
 - Herramientas disponibles: el host puede ejecutar acciones autorizadas.
-- Delegación real: el host creó subagentes independientes y recibió sus resultados.
+- Delegación real: el host creó subagentes independientes y recibió resultados.
 - Orquestación avanzada: el sistema conserva estado, permisos, cancelación y auditoría.
 
-No confundir estos niveles. Si no hay subagentes, AI DEV TEAM sigue siendo utilizable mediante coordinación secuencial del asistente anfitrión.
+MCP conecta herramientas en clientes compatibles; no sustituye el soporte de subagentes ni un runtime.
 
 ## Seguridad
-Nunca pegues claves o tokens en archivos de instrucciones. No otorgues acceso irrestricto al filesystem o shell. Revisa permisos y comandos antes de aprobar.
+Nunca guardes claves o tokens en archivos de instrucciones. No otorgues acceso irrestricto al filesystem o shell. Revisa permisos y comandos antes de aprobar.

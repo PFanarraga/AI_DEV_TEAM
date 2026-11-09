@@ -21,6 +21,10 @@ def main() -> None:
         ROOT / "adapters" / "README.md",
         ROOT / "docs" / "IDE-COMPATIBILITY.md",
         ROOT / "templates" / "agent-task.md",
+        ROOT / "CLAUDE.md", ROOT / "GEMINI.md",
+        ROOT / ".github" / "copilot-instructions.md",
+        ROOT / ".cursor" / "rules" / "ai-dev-team.mdc",
+        ROOT / ".junie" / "AGENTS.md",
     ]
     for path in required:
         if not path.exists():
@@ -49,11 +53,11 @@ def main() -> None:
             if candidate.endswith("/SKILL.md") and not (SKILLS / candidate).is_file():
                 missing.append(f"{agent.relative_to(ROOT)} -> {candidate}")
     if missing:
-        fail("Missing Skill references:\n" + "\n".join(missing))
+        fail("Missing Skill references:\\n" + "\\n".join(missing))
 
     for filename in ("AGENTS.md", "README.md", "TUTORIAL_MAESTRO_AI_DEV_TEAM.md"):
-        p = ROOT / filename
-        if not p.is_file() or ".agents/" not in p.read_text(encoding="utf-8"):
+        path = ROOT / filename
+        if not path.is_file() or ".agents/" not in path.read_text(encoding="utf-8"):
             fail(f"{filename} must document .agents/")
 
     print("AI DEV TEAM validation: OK")
@@ -61,7 +65,7 @@ def main() -> None:
     print(f"Unique Skills: {len(skills)}")
     print(f"Workflows: {len(workflows)}")
     print("Agent Skill references: OK")
-    print("IDE adapter documentation: OK")
+    print("IDE adapters: OK")
 
 
 if __name__ == "__main__":

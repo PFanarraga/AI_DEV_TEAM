@@ -1,28 +1,26 @@
 # Tutorial maestro de AI DEV TEAM
 
 ## 1. Qué es
-AI DEV TEAM es un framework portable con 18 agentes, 57 Skills, 8 workflows y plantillas. El usuario trabaja con el asistente que ya tiene en su IDE, editor, terminal o plataforma. Ese asistente asume el rol Director y coordina especialistas.
+Framework portable con 18 agentes, 57 Skills, 8 workflows y adaptadores para distintos asistentes. El usuario conversa con su asistente habitual; este asume el rol Director y coordina especialistas.
 
-Los perfiles Markdown son instrucciones y contratos, no procesos autónomos. La delegación paralela depende de que el asistente anfitrión soporte subagentes reales. Sin esa capacidad, el Director coordina por etapas secuenciales.
+Los perfiles Markdown son instrucciones, no procesos autónomos. La delegación paralela depende de que el host soporte subagentes reales. Sin esa capacidad, el Director coordina secuencialmente.
 
 ## 2. Instalar en un proyecto
-1. Copia AGENTS.md a la raíz del proyecto.
-2. Copia la carpeta completa .agents/ a esa misma raíz.
-3. Conserva nombres y jerarquía.
+1. Copia AGENTS.md y la carpeta .agents/ a la raíz.
+2. Copia el adaptador correspondiente desde este repositorio: CLAUDE.md, GEMINI.md, .cursor/, .github/ o .junie/.
+3. Conserva la estructura de .agents/.
 4. Consulta docs/IDE-COMPATIBILITY.md y adapters/README.md.
-5. Configura el asistente anfitrión para cargar las instrucciones del repositorio.
-6. Comprueba que puede leer AGENTS.md y los perfiles solicitados.
-
-Git y GitHub admiten carpetas que comienzan con punto. No renombres .agents/.
+5. Comprueba que el asistente carga las instrucciones.
+6. No sobrescribas archivos de configuración ya existentes: combina las reglas.
 
 ## 3. Activar al Director
-Usa el prompt de adapters/README.md. El Director inspecciona estructura, stack, scripts, pruebas y estado del repositorio; identifica riesgos; selecciona agentes y Skills; presenta plan y criterios; y solicita aprobación cuando corresponda.
+Usa el prompt universal de adapters/README.md. El Director inspecciona estructura, stack, scripts, pruebas y estado del repositorio; identifica riesgos; selecciona agentes y Skills; presenta plan y criterios; y solicita aprobación cuando corresponda.
 
 ## 4. Orquestación
 - El usuario conversa con el asistente anfitrión.
 - El Director define tareas y selecciona especialistas.
 - Si el host ofrece subagentes reales, delega trabajos independientes.
-- Si no, coordina cada especialista secuencialmente, sin fingir concurrencia.
+- Si no, coordina perfiles secuencialmente sin fingir concurrencia.
 - El asistente anfitrión ejecuta las herramientas que tenga habilitadas.
 - El Director integra y verifica los resultados.
 
@@ -31,11 +29,11 @@ Usa el prompt de adapters/README.md. El Director inspecciona estructura, stack, 
 - Arquitectura: .agents/agents/architect.md
 - Frontend/fullstack: .agents/agents/developer.md
 - Backend: .agents/agents/backend-engineer.md
-- Android/iOS/multiplataforma: .agents/agents/developer.md + Skills mobile/
+- Android/iOS/multiplataforma: developer.md + Skills mobile/
 - Desktop: .agents/agents/desktop-developer.md
 - Datos: .agents/agents/data-engineer.md
 - Videojuegos/XR: .agents/agents/game-developer.md
-- QA y automatización: .agents/agents/tester.md y qa-automation.md
+- QA: .agents/agents/tester.md y qa-automation.md
 - Seguridad: .agents/agents/security.md
 - Rendimiento: .agents/agents/performance.md
 - DevOps/SRE: .agents/agents/devops-sre.md
@@ -46,18 +44,11 @@ Usa el prompt de adapters/README.md. El Director inspecciona estructura, stack, 
 - Investigación: .agents/agents/researcher.md
 
 ## 6. Workflows
-- Descubrimiento: .agents/workflows/product-discovery.md
-- Nueva función: .agents/workflows/new-feature.md
-- Corrección: .agents/workflows/bug-fix.md
-- Refactorización: .agents/workflows/refactoring.md
-- Seguridad: .agents/workflows/security-audit.md
-- Desarrollo multiagente: .agents/workflows/multi-agent-development.md
-- Integración IDE: .agents/workflows/ide-integration.md
-- Despliegue: .agents/workflows/deployment.md
+Consulta .agents/workflows/ para descubrimiento, nuevas funciones, correcciones, refactorización, seguridad, desarrollo multiagente, integración IDE y despliegue.
 
 ## 7. Seguridad y calidad
-Nunca guardes secretos en el repositorio. Verifica autorización en servidor y base de datos. Usa unidades menores enteras o decimales exactos para dinero. Añade pruebas de regresión. Ejecuta comandos reales y conserva evidencias. Solicita aprobación para acciones destructivas, externas y productivas.
+Nunca guardes secretos en el repositorio. Verifica autorización en servidor y base de datos. Usa unidades menores enteras o decimales exactos para dinero. Añade pruebas de regresión. Solicita aprobación para acciones destructivas, externas y productivas.
 
 ## 8. Validación
 Desde la raíz ejecuta: python scripts/validate_framework.py
-La validación comprueba estructura, inventario y referencias documentales. No compila aplicaciones externas ni ejecuta agentes.
+La validación comprueba estructura, inventario y referencias documentales. No ejecuta agentes ni compila aplicaciones externas.
