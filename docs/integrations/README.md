@@ -12,7 +12,7 @@ La integración se hace en dos fases separadas. No empieces a desarrollar el pro
 1. **Instala el núcleo en el proyecto:** copia `AGENTS.md` y la carpeta `.agents/` completa a la raíz del proyecto. No copies el repositorio entero ni su carpeta `.git/`. Consulta [la guía de instalación paso a paso](../PROJECT-BOOTSTRAP.md).
 2. **Configura el asistente:** elige una guía de esta página y utiliza [Prompt 1: configurar el asistente](../../prompts/01-configure-assistant.md). El asistente debe crear o adaptar únicamente su configuración nativa, sin sobrescribir reglas existentes.
 3. **Verifica:** confirma lectura del núcleo, Skills y Director; comprueba las capacidades reales del host y sus permisos.
-4. **Inicia el proyecto:** utiliza [Prompt 2: iniciar un proyecto](../../prompts/02-start-project.md) o el prompt de inicio incluido en la guía específica. La configuración debe estar terminada antes de esta fase.
+4. **Inicia el proyecto:** utiliza [Prompt 2: iniciar el proyecto](../../prompts/02-start-project.md) e incorpora la descripción preparada con Prompt 0, si lo utilizaste. La configuración debe estar terminada antes de esta fase.
 
 ### Instalación del núcleo
 
