@@ -1,60 +1,69 @@
 # AI DEV TEAM
 
-Framework portable de ingeniería asistida por IA con **18 agentes, 57 Skills únicas y 8 workflows** para proyectos web, móviles, desktop, backend, datos, IA, videojuegos, XR y e-commerce.
+Framework portable de ingeniería asistida por IA: **18 agentes, 57 Skills y 8 workflows** para proyectos web, móviles, desktop, backend, datos, IA, videojuegos, XR y e-commerce.
 
-## Método oficial: instalar primero, configurar después, desarrollar al final
+## Empieza aquí
 
-Cada proyecto nuevo comienza copiando el núcleo canónico a su raíz:
+El método oficial tiene dos fases: **instalar y configurar**, después **iniciar y desarrollar**.
 
-- `AGENTS.md`
-- `.agents/` completa
+1. Prepara la carpeta del proyecto.
+2. Instala `AGENTS.md` y `.agents/` con el [instalador seguro](scripts/install_ai_dev_team.py).
+3. Abre el proyecto en tu IDE/asistente y sigue [la guía de instalación](docs/PROJECT-BOOTSTRAP.md).
+4. Ejecuta [Prompt 1: configurar el asistente](prompts/01-configure-assistant.md).
+5. Verifica las capacidades reales del host.
+6. Ejecuta [Prompt 2: iniciar el proyecto](prompts/02-start-project.md).
 
-No hace falta copiar el repositorio AI_DEV_TEAM entero dentro del proyecto. Puedes instalar el núcleo manualmente o con el instalador seguro:
+### Instalar en Windows PowerShell
+
+Desde la carpeta donde clonaste AI_DEV_TEAM:
 
 ```powershell
-py scripts/install_ai_dev_team.py --target "D:\Proyectos\MiProyecto" --dry-run
-py scripts/install_ai_dev_team.py --target "D:\Proyectos\MiProyecto"
+py .\scripts\install_ai_dev_team.py --target "D:\Proyectos\MiProyecto" --dry-run
+py .\scripts\install_ai_dev_team.py --target "D:\Proyectos\MiProyecto"
 ```
 
-Después:
-1. Abre el proyecto en el IDE/asistente elegido.
-2. Sigue [la guía de instalación y bootstrap](docs/PROJECT-BOOTSTRAP.md).
-3. Ejecuta [Prompt 1: configurar el asistente](prompts/01-configure-assistant.md).
-4. Verifica las capacidades reales y el adaptador nativo.
-5. Ejecuta [Prompt 2: iniciar el proyecto](prompts/02-start-project.md) o el prompt específico de la guía de tu asistente.
+El instalador copia solo el núcleo, no sobrescribe archivos y se detiene si detecta conflictos.
 
-## Guías por asistente
+## Documentación
 
-Consulta [docs/integrations/README.md](docs/integrations/README.md). Hay guías para VS Code/Copilot, Visual Studio/Copilot, OpenAI Codex, Claude Code, Cursor, Gemini CLI, JetBrains Junie/Android Studio, Windsurf/Devin Local, Cline, Roo Code, Continue, Aider, Zed y otros IDEs.
+Consulta el [índice de documentación](docs/README.md), que organiza:
+- [Bootstrap de proyectos](docs/PROJECT-BOOTSTRAP.md): instalación, configuración y verificación.
+- [Integraciones](docs/integrations/README.md): 14 guías por IDE/asistente.
+- [Compatibilidad](docs/IDE-COMPATIBILITY.md): matriz de capacidades y límites.
+- [Prompts oficiales](prompts/): configuración e inicio.
 
-## Qué contiene el framework
+## Estructura del repositorio
 
-- `AGENTS.md`: reglas globales y protocolo de orquestación.
-- `.agents/agents/`: 18 perfiles especialistas.
-- `.agents/skills/`: 57 Skills organizadas por dominio.
-- `.agents/workflows/`: 8 procesos reutilizables.
-- `.agents/runtime/`: especificación de arquitectura para un runtime opcional.
-- `docs/integrations/`: guías y prompts por asistente.
-- `prompts/`: los dos prompts universales de configuración e inicio.
-- `scripts/install_ai_dev_team.py`: instalador seguro del núcleo.
-- `templates/`: solicitudes, handoffs, ADR y pull requests.
+```text
+AI_DEV_TEAM/
+├── .agents/
+│   ├── agents/       # 18 perfiles, incluido Director
+│   ├── skills/       # 57 Skills
+│   ├── workflows/    # 8 flujos de trabajo
+│   └── runtime/      # especificación opcional, no runtime ejecutable
+├── docs/             # documentación e integraciones
+├── prompts/          # dos prompts oficiales
+├── scripts/          # instalador y validador
+├── templates/        # plantillas de tareas, handoffs y ADR
+├── tests/            # pruebas automatizadas
+└── AGENTS.md         # instrucciones canónicas
+```
 
-## Rol del asistente
+Los archivos de integración en la raíz (`CLAUDE.md`, `GEMINI.md`, `.cursor/`, `.github/` y `.junie/`) permiten probar AI_DEV_TEAM desde esos asistentes cuando abren este repositorio. **No se copian al proyecto destino**: allí el Prompt 1 prepara el adaptador mínimo que corresponda.
 
-El usuario conversa con el asistente que prefiera. Ese asistente asume el rol de **Director**, inspecciona el proyecto, selecciona especialistas y Skills, coordina la implementación y verifica resultados.
+## Cómo trabaja el equipo
 
-Los perfiles Markdown son instrucciones y contratos de rol. La delegación paralela depende de que el asistente anfitrión soporte subagentes reales. Si no los soporta, el Director coordina secuencialmente.
+El asistente que elijas asume el rol de **Director**. Lee los perfiles pertinentes, selecciona Skills y coordina el trabajo. Los perfiles Markdown son instrucciones, no procesos autónomos. La delegación paralela depende de que el host ofrezca subagentes reales; de lo contrario, el Director coordina secuencialmente.
 
-## Validación
-
-Desde este repositorio ejecuta:
+## Validar el repositorio
 
 ```bash
 python scripts/validate_framework.py
+python -m unittest discover -s tests -v
 ```
 
-La validación comprueba estructura e inventario documental. No certifica compatibilidad funcional con cada asistente. Cada integración debe probarse en la versión y configuración reales del host.
+Estas comprobaciones validan estructura e instalador. No certifican que las 14 integraciones funcionen en todas las versiones de los asistentes: cada una debe probarse en su entorno real.
 
 ## Seguridad
 
-Nunca subas secretos. No habilites permisos irrestrictos. Solicita aprobación para operaciones destructivas, externas o productivas. El instalador no sobrescribe archivos existentes.
+No subas secretos ni habilites permisos irrestrictos. Conserva los archivos del proyecto, revisa el diff y solicita aprobación antes de operaciones destructivas, externas o productivas.

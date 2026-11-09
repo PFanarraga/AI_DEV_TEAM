@@ -18,7 +18,7 @@ def main() -> None:
         ROOT / "AGENTS.md", ROOT / "README.md",
         BASE / "agents", BASE / "skills", BASE / "workflows",
         BASE / "runtime" / "ORCHESTRATION.md",
-        ROOT / "adapters" / "README.md",
+        ROOT / "docs" / "README.md",
         ROOT / "docs" / "IDE-COMPATIBILITY.md",
         ROOT / "docs" / "integrations" / "README.md",
         ROOT / "docs" / "PROJECT-BOOTSTRAP.md",
@@ -84,7 +84,7 @@ def main() -> None:
         if "AI DEV TEAM" not in prompt or ("INSTRUCCIONES" not in prompt and "INSTRUCCIONES PARA EL DIRECTOR" not in prompt):
             fail(f"Prompt missing required instructions: prompts/{prompt_name}")
 
-    for filename in ("AGENTS.md", "README.md", "TUTORIAL_MAESTRO_AI_DEV_TEAM.md"):
+    for filename in ("AGENTS.md", "README.md"):
         path = ROOT / filename
         if not path.is_file() or ".agents/" not in path.read_text(encoding="utf-8"):
             fail(f"{filename} must document .agents/")
@@ -97,6 +97,7 @@ def main() -> None:
     print("Assistant base prompts: OK")
     print("Project bootstrap, two-stage prompts and safe installer: OK")
     print("Agent Skill references: OK")
+    print("Canonical documentation index: OK")
 
 
 if __name__ == "__main__":

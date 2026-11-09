@@ -25,11 +25,11 @@ Usar el mismo núcleo de agentes, Skills y workflows en cualquier proyecto y con
 | `.agents/workflows/` | Sí | Procesos de trabajo |
 | `.agents/runtime/` | Sí | Contrato y especificación de orquestación |
 | `docs/` | No, normalmente | Guías de referencia del repositorio central |
-| `adapters/` | No, normalmente | Material de adaptación y documentación |
+| Archivos de adaptador del repositorio central | No | Solo son ejemplos/configuraciones para probar el repositorio fuente; el Prompt 1 prepara el adaptador mínimo en cada proyecto |
 | `scripts/` | No, normalmente | Herramientas de mantenimiento del framework |
 | `.git/` | No | No anidar el repositorio del framework dentro del proyecto |
 
-El núcleo mínimo es `AGENTS.md` más `.agents/` completa. No copies solamente los agentes: las Skills y workflows son parte del sistema.
+El núcleo mínimo es `AGENTS.md` más `.agents/` completa. No copies solamente los agentes: las Skills y workflows son parte del sistema. Los adaptadores que existen en la raíz del repositorio central (`CLAUDE.md`, `GEMINI.md`, `.cursor/`, `.github/`, `.junie/`) sirven para probar el propio AI_DEV_TEAM; no se instalan automáticamente en el proyecto destino.
 
 ## Instalación automática segura
 
