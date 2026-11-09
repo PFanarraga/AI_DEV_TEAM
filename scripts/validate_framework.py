@@ -22,6 +22,7 @@ def main() -> None:
         ROOT / "docs" / "IDE-COMPATIBILITY.md",
         ROOT / "docs" / "integrations" / "README.md",
         ROOT / "docs" / "PROJECT-BOOTSTRAP.md",
+        ROOT / "prompts" / "00-project-consultant.md",
         ROOT / "prompts" / "01-configure-assistant.md",
         ROOT / "prompts" / "02-start-project.md",
         ROOT / "scripts" / "install_ai_dev_team.py",
@@ -75,10 +76,13 @@ def main() -> None:
             fail(f"Integration index missing {guide.name}")
 
     bootstrap = (ROOT / "docs" / "PROJECT-BOOTSTRAP.md").read_text(encoding="utf-8")
-    for required_text in ("AGENTS.md", ".agents/", "Prompt 1", "Prompt 2", "--dry-run"):
+    for required_text in ("AGENTS.md", ".agents/", "Prompt 0", "Prompt 1", "Prompt 2", "--dry-run"):
         if required_text not in bootstrap:
             fail(f"Bootstrap guide missing required content: {required_text}")
 
+    prompt0 = (ROOT / "prompts" / "00-project-consultant.md").read_text(encoding="utf-8")
+    if "AI DEV TEAM" not in prompt0 or "PROMPT INICIAL PARA AI DEV TEAM" not in prompt0:
+        fail("Project consultant prompt missing required content")
     for prompt_name in ("01-configure-assistant.md", "02-start-project.md"):
         prompt = (ROOT / "prompts" / prompt_name).read_text(encoding="utf-8")
         if "AI DEV TEAM" not in prompt or ("INSTRUCCIONES" not in prompt and "INSTRUCCIONES PARA EL DIRECTOR" not in prompt):
@@ -94,8 +98,8 @@ def main() -> None:
     print(f"Unique Skills: {len(skills)}")
     print(f"Workflows: {len(workflows)}")
     print(f"Assistant integration guides: {len(guides)}")
-    print("Assistant base prompts: OK")
-    print("Project bootstrap, two-stage prompts and safe installer: OK")
+    print("Project consultant and assistant base prompts: OK")
+    print("Project bootstrap, prompts and safe installer: OK")
     print("Agent Skill references: OK")
     print("Canonical documentation index: OK")
 

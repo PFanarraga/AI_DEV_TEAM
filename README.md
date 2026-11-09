@@ -4,14 +4,15 @@ Framework portable de ingeniería asistida por IA: **18 agentes, 57 Skills y 8 w
 
 ## Empieza aquí
 
-El método oficial tiene dos fases: **instalar y configurar**, después **iniciar y desarrollar**.
+El método recomendado tiene tres momentos: **definir la idea, instalar y configurar, después iniciar y desarrollar**.
 
-1. Prepara la carpeta del proyecto.
-2. Instala `AGENTS.md` y `.agents/` con el [instalador seguro](scripts/install_ai_dev_team.py).
-3. Abre el proyecto en tu IDE/asistente y sigue [la guía de instalación](docs/PROJECT-BOOTSTRAP.md).
-4. Ejecuta [Prompt 1: configurar el asistente](prompts/01-configure-assistant.md).
-5. Verifica las capacidades reales del host.
-6. Ejecuta [Prompt 2: iniciar el proyecto](prompts/02-start-project.md).
+1. **Ordena tu idea (recomendado):** usa [Prompt 0: consultor de ideas](prompts/00-project-consultant.md) en ChatGPT, Gemini, Claude u otra IA. Te ayudará a expresar lo básico del proyecto y generará un bloque inicial para el Director. No define la arquitectura ni sustituye a AI DEV TEAM.
+2. Prepara la carpeta del proyecto.
+3. Instala `AGENTS.md` y `.agents/` con el [instalador seguro](scripts/install_ai_dev_team.py).
+4. Abre el proyecto en tu IDE/asistente y sigue [la guía de instalación](docs/PROJECT-BOOTSTRAP.md).
+5. Ejecuta [Prompt 1: configurar el asistente](prompts/01-configure-assistant.md).
+6. Verifica las capacidades reales del host.
+7. Ejecuta [Prompt 2: iniciar el proyecto](prompts/02-start-project.md), incorporando el bloque generado por Prompt 0 si lo utilizaste.
 
 ### Instalar en Windows PowerShell
 
@@ -30,7 +31,7 @@ Consulta el [índice de documentación](docs/README.md), que organiza:
 - [Bootstrap de proyectos](docs/PROJECT-BOOTSTRAP.md): instalación, configuración y verificación.
 - [Integraciones](docs/integrations/README.md): 14 guías por IDE/asistente.
 - [Compatibilidad](docs/IDE-COMPATIBILITY.md): matriz de capacidades y límites.
-- [Prompts oficiales](prompts/): configuración e inicio.
+- [Prompts oficiales](prompts/): consultor de ideas, configuración e inicio.
 
 ## Estructura del repositorio
 
@@ -42,7 +43,7 @@ AI_DEV_TEAM/
 │   ├── workflows/    # 8 flujos de trabajo
 │   └── runtime/      # especificación opcional, no runtime ejecutable
 ├── docs/             # documentación e integraciones
-├── prompts/          # dos prompts oficiales
+├── prompts/          # consultor, configuración e inicio
 ├── scripts/          # instalador y validador
 ├── templates/        # plantillas de tareas, handoffs y ADR
 ├── tests/            # pruebas automatizadas

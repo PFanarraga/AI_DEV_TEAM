@@ -3,7 +3,9 @@
 **Investigación documental:** 9 de noviembre de 2026.  
 **Objetivo:** instalar el mismo equipo AI DEV TEAM en el asistente que el usuario elija, sin obligarlo a usar un IDE, proveedor o motor propio.
 
-## Orden obligatorio de uso
+## Orden recomendado
+
+Antes de iniciar, puedes ordenar tu idea con [Prompt 0: consultor de ideas](../../prompts/00-project-consultant.md). Es opcional y solo prepara una descripción básica; no sustituye el análisis del Director ni define la arquitectura técnica.
 
 La integración se hace en dos fases separadas. No empieces a desarrollar el producto durante la primera fase.
 

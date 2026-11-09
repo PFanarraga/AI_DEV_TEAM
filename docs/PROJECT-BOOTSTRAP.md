@@ -4,15 +4,16 @@
 
 Usar el mismo núcleo de agentes, Skills y workflows en cualquier proyecto y con el asistente que el usuario prefiera. La instalación se realiza antes de configurar el asistente y antes de pedirle que construya el producto.
 
-## Flujo oficial
+## Flujo recomendado
 
+0. **Ordenar la idea (opcional, recomendado):** antes de preparar la carpeta, utiliza [Prompt 0: consultor de ideas](../prompts/00-project-consultant.md) en una IA conversacional. Explica qué quieres crear; el consultor te ayudará con las decisiones básicas y generará una descripción inicial. No define arquitectura ni decisiones técnicas: eso corresponde al Director y a AI DEV TEAM. Si ya tienes clara tu idea, puedes omitir este paso.
 1. **Preparar el proyecto:** crea o abre la carpeta raíz del proyecto. Si ya contiene código, no lo muevas ni lo reemplaces.
 2. **Obtener AI DEV TEAM:** clona o descarga este repositorio en una ubicación auxiliar. No es necesario copiar el repositorio completo dentro del proyecto.
 3. **Instalar el núcleo:** copia únicamente `AGENTS.md` y la carpeta `.agents/` a la raíz del proyecto. Puedes hacerlo manualmente o ejecutar el instalador seguro descrito abajo.
 4. **Elegir el asistente:** abre la carpeta del proyecto en el IDE/asistente que usarás y consulta la guía correspondiente en [docs/integrations](integrations/README.md).
 5. **Configurar el asistente:** pega [Prompt 1: configurar el asistente](../prompts/01-configure-assistant.md), junto con la guía específica. El asistente debe detectar su versión, comprobar la documentación oficial vigente y preparar solo el adaptador nativo necesario.
 6. **Verificar la integración:** confirma que el asistente puede leer `AGENTS.md`, el perfil Director y las Skills; revisa las herramientas, permisos y disponibilidad real de subagentes.
-7. **Iniciar el proyecto:** completa [Prompt 2: iniciar un proyecto](../prompts/02-start-project.md) o utiliza el prompt de inicio incluido en la guía específica del asistente.
+7. **Iniciar el proyecto:** completa [Prompt 2: iniciar un proyecto](../prompts/02-start-project.md). Si utilizaste Prompt 0, pega su bloque generado en la descripción del proyecto y conserva las instrucciones del Prompt 2.
 8. **Desarrollar:** el Director inspecciona, planifica, coordina, implementa y verifica siguiendo las reglas del núcleo.
 
 ## Qué copiar y qué no copiar
