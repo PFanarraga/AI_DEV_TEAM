@@ -1,54 +1,34 @@
 # Tutorial maestro de AI DEV TEAM
 
 ## 1. Qué es
-Framework portable con 18 agentes, 57 Skills, 8 workflows y adaptadores para distintos asistentes. El usuario conversa con su asistente habitual; este asume el rol Director y coordina especialistas.
+Framework portable con 18 agentes, 57 Skills, 8 workflows y adaptadores. El usuario trabaja con su asistente habitual; este asume el rol Director y coordina especialistas.
 
-Los perfiles Markdown son instrucciones, no procesos autónomos. La delegación paralela depende de que el host soporte subagentes reales. Sin esa capacidad, el Director coordina secuencialmente.
+Los perfiles Markdown son instrucciones y contratos, no procesos autónomos. La delegación depende de que el host soporte subagentes reales. Sin esa capacidad, el Director coordina secuencialmente.
 
-## 2. Instalar en un proyecto
-1. Copia AGENTS.md y la carpeta .agents/ a la raíz.
-2. Copia el adaptador correspondiente desde este repositorio: CLAUDE.md, GEMINI.md, .cursor/, .github/ o .junie/.
-3. Conserva la estructura de .agents/.
-4. Consulta docs/IDE-COMPATIBILITY.md y adapters/README.md.
-5. Comprueba que el asistente carga las instrucciones.
-6. No sobrescribas archivos de configuración ya existentes: combina las reglas.
+## 2. Integración por asistente
+Consulta [docs/integrations/README.md](docs/integrations/README.md). Hay guías con configuraciones y prompts base para VS Code/Copilot, Visual Studio/Copilot, Codex, Claude Code, Cursor, Gemini CLI, Junie/Android Studio, Windsurf/Devin Local, Cline, Roo Code, Continue, Aider, Zed y otros IDEs.
 
-## 3. Activar al Director
-Usa el prompt universal de adapters/README.md. El Director inspecciona estructura, stack, scripts, pruebas y estado del repositorio; identifica riesgos; selecciona agentes y Skills; presenta plan y criterios; y solicita aprobación cuando corresponda.
+## 3. Instalar en un proyecto
+1. Copia `AGENTS.md` y `.agents/` a la raíz.
+2. Abre la guía del asistente que usarás.
+3. Copia o combina su archivo de instrucciones nativo. No sobrescribas configuraciones existentes.
+4. Comprueba que el asistente puede leer el Director y las Skills.
+5. Pega el prompt base de esa guía y describe tu proyecto.
 
-## 4. Orquestación
+## 4. Activar al Director
+El Director inspecciona estructura, stack, scripts, pruebas y estado Git; identifica riesgos; selecciona agentes y Skills; presenta plan y criterios; solicita aprobación cuando corresponda.
+
+## 5. Orquestación
 - El usuario conversa con el asistente anfitrión.
 - El Director define tareas y selecciona especialistas.
-- Si el host ofrece subagentes reales, delega trabajos independientes.
-- Si no, coordina perfiles secuencialmente sin fingir concurrencia.
+- Si el host ofrece subagentes reales, delega tareas independientes.
+- Si no, coordina perfiles secuencialmente.
 - El asistente anfitrión ejecuta las herramientas que tenga habilitadas.
-- El Director integra y verifica los resultados.
+- El Director integra y verifica resultados.
 
-## 5. Especialistas
-- Producto: .agents/agents/product-manager.md
-- Arquitectura: .agents/agents/architect.md
-- Frontend/fullstack: .agents/agents/developer.md
-- Backend: .agents/agents/backend-engineer.md
-- Android/iOS/multiplataforma: developer.md + Skills mobile/
-- Desktop: .agents/agents/desktop-developer.md
-- Datos: .agents/agents/data-engineer.md
-- Videojuegos/XR: .agents/agents/game-developer.md
-- QA: .agents/agents/tester.md y qa-automation.md
-- Seguridad: .agents/agents/security.md
-- Rendimiento: .agents/agents/performance.md
-- DevOps/SRE: .agents/agents/devops-sre.md
-- IA/ML: .agents/agents/ai-ml-engineer.md
-- Integración IDE/MCP: .agents/agents/platform-integration.md
-- UX: .agents/agents/ui-ux.md
-- Diseño visual: .agents/agents/visual-designer.md
-- Investigación: .agents/agents/researcher.md
+## 6. Seguridad y calidad
+Nunca guardes secretos en el repositorio. Verifica autorización en servidor y base de datos. Añade pruebas de regresión. Solicita aprobación para acciones destructivas, externas y productivas. No confundas una prueba documentada con una prueba ejecutada.
 
-## 6. Workflows
-Consulta .agents/workflows/ para descubrimiento, nuevas funciones, correcciones, refactorización, seguridad, desarrollo multiagente, integración IDE y despliegue.
-
-## 7. Seguridad y calidad
-Nunca guardes secretos en el repositorio. Verifica autorización en servidor y base de datos. Usa unidades menores enteras o decimales exactos para dinero. Añade pruebas de regresión. Solicita aprobación para acciones destructivas, externas y productivas.
-
-## 8. Validación
-Desde la raíz ejecuta: python scripts/validate_framework.py
-La validación comprueba estructura, inventario y referencias documentales. No ejecuta agentes ni compila aplicaciones externas.
+## 7. Validación
+Desde la raíz ejecuta: `python scripts/validate_framework.py`.
+La validación comprueba estructura e inventario documental. No certifica compatibilidad funcional con cada IDE.

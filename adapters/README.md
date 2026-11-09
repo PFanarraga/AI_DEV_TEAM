@@ -1,49 +1,29 @@
 # Adaptadores de AI DEV TEAM
 
-## Propósito
-Conectar la fuente canónica de AI DEV TEAM con distintos IDEs, editores, asistentes y terminales. No se requiere motor propio: el asistente anfitrión actúa como Director.
+La documentación actualizada de integración y los prompts específicos por asistente se encuentran en:
 
-## Núcleo
-Copia a la raíz del proyecto:
-- AGENTS.md
-- .agents/
+**[docs/integrations/README.md](../docs/integrations/README.md)**
 
-Conserva la jerarquía y no renombres .agents/.
+Incluye guías para VS Code/Copilot, Visual Studio/Copilot, OpenAI Codex, Claude Code, Cursor, Gemini CLI, JetBrains Junie/Android Studio, Windsurf/Devin Local, Cline, Roo Code, Continue, Aider, Zed y otros IDEs.
 
-## Adaptadores incluidos y documentados
-Este repositorio incluye archivos nativos para:
-- GitHub Copilot: .github/copilot-instructions.md
-- OpenAI Codex y hosts compatibles con AGENTS.md: AGENTS.md
-- Cursor: .cursor/rules/ai-dev-team.mdc y AGENTS.md
-- Claude Code: CLAUDE.md
-- Gemini CLI: GEMINI.md
-- Junie: .junie/AGENTS.md
+## Núcleo común
 
-Los archivos son adaptadores ligeros. En proyectos existentes, copia o combina solo el adaptador del host que realmente uses. No sobrescribas reglas locales existentes.
+Copia a la raíz de cada proyecto:
+- `AGENTS.md`
+- `.agents/`
+
+No renombres `.agents/`. Conserva los perfiles, Skills y workflows. Añade el adaptador nativo indicado por la guía del host y combina reglas existentes sin sobrescribirlas.
 
 ## Prompt universal de activación
-Cuando el host no detecte automáticamente sus instrucciones, pega este prompt:
 
-> Lee AGENTS.md y actúa como Director de AI DEV TEAM. Inspecciona el repositorio, estado de Git, stack, instrucciones del host y herramientas disponibles. Consulta .agents/agents/director.md. Clasifica mi solicitud, selecciona solo especialistas y Skills pertinentes y presenta objetivo, alcance, tareas, dependencias, riesgos y criterios de aceptación antes de modificar. Si tienes subagentes reales, delega tareas independientes y reporta qué delegaste. Si no, coordina secuencialmente sin simular procesos paralelos. No inventes herramientas ni resultados. Conserva mis cambios y pide aprobación para operaciones destructivas, externas o productivas. Revisa el diff, ejecuta pruebas disponibles y reporta comandos y resultados reales.
+Cuando el asistente no detecte automáticamente las instrucciones, usa el prompt base de [generic-ide.md](../docs/integrations/generic-ide.md).
 
-## Otros IDEs, editores y plataformas
-Para Visual Studio, JetBrains IDEs sin Junie/Copilot, Android Studio sin Junie/Copilot, Eclipse, NetBeans, Xcode, Windsurf, Zed, Cline, Roo Code, Continue, Aider, otros agentes CLI y entornos cloud:
-1. Consulta docs/IDE-COMPATIBILITY.md.
-2. Verifica la documentación oficial y versión del host.
-3. Configura el archivo de instrucciones nativo del host para cargar AGENTS.md y activar al Director.
-4. Si el host no carga AGENTS.md, usa el prompt universal o un adaptador específico revisado.
-5. Verifica carga de Skills, herramientas y delegación real.
+## Principios
 
-La lista de productos no significa que todos tengan un adaptador implementado. No existe una configuración única que active automáticamente todos los IDEs.
-
-## Niveles de funcionamiento
-- Instrucciones cargadas: el host leyó el contexto.
-- Skills accesibles: el Director puede consultar Skills pertinentes.
-- Herramientas disponibles: el host puede ejecutar acciones autorizadas.
-- Delegación real: el host creó subagentes independientes y recibió resultados.
-- Orquestación avanzada: el sistema conserva estado, permisos, cancelación y auditoría.
-
-MCP conecta herramientas en clientes compatibles; no sustituye el soporte de subagentes ni un runtime.
-
-## Seguridad
-Nunca guardes claves o tokens en archivos de instrucciones. No otorgues acceso irrestricto al filesystem o shell. Revisa permisos y comandos antes de aprobar.
+- El asistente anfitrión asume el rol Director.
+- El Director lee perfiles y Skills relevantes, y selecciona especialistas.
+- Solo se afirma delegación cuando el host crea subagentes reales.
+- Si no hay subagentes, coordina de forma secuencial.
+- MCP conecta herramientas, no crea por sí mismo subagentes.
+- Cada integración debe verificarse en la versión y configuración real del usuario.
+- No conceder permisos irrestrictos ni ejecutar operaciones destructivas o productivas sin aprobación.

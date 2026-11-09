@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate AI DEV TEAM inventories, structure and agent Skill references."""
+"""Validate AI DEV TEAM inventories, structure, guide coverage and references."""
 from pathlib import Path
 import sys
 
@@ -20,6 +20,7 @@ def main() -> None:
         BASE / "runtime" / "ORCHESTRATION.md",
         ROOT / "adapters" / "README.md",
         ROOT / "docs" / "IDE-COMPATIBILITY.md",
+        ROOT / "docs" / "integrations" / "README.md",
         ROOT / "templates" / "agent-task.md",
         ROOT / "CLAUDE.md", ROOT / "GEMINI.md",
         ROOT / ".github" / "copilot-instructions.md",
@@ -55,6 +56,19 @@ def main() -> None:
     if missing:
         fail("Missing Skill references:\\n" + "\\n".join(missing))
 
+    guides_dir = ROOT / "docs" / "integrations"
+    guides = sorted(p for p in guides_dir.glob("*.md") if p.name != "README.md")
+    if len(guides) != 14:
+        fail(f"Expected 14 assistant integration guides, found {len(guides)}")
+    for guide in guides:
+        body = guide.read_text(encoding="utf-8")
+        if "Prompt base" not in body:
+            fail(f"Missing assistant base prompt: {guide.relative_to(ROOT)}")
+    index = (guides_dir / "README.md").read_text(encoding="utf-8")
+    for guide in guides:
+        if guide.name not in index:
+            fail(f"Integration index missing {guide.name}")
+
     for filename in ("AGENTS.md", "README.md", "TUTORIAL_MAESTRO_AI_DEV_TEAM.md"):
         path = ROOT / filename
         if not path.is_file() or ".agents/" not in path.read_text(encoding="utf-8"):
@@ -64,8 +78,9 @@ def main() -> None:
     print(f"Agents: {len(agents)}")
     print(f"Unique Skills: {len(skills)}")
     print(f"Workflows: {len(workflows)}")
+    print(f"Assistant integration guides: {len(guides)}")
+    print("Assistant base prompts: OK")
     print("Agent Skill references: OK")
-    print("IDE adapters: OK")
 
 
 if __name__ == "__main__":

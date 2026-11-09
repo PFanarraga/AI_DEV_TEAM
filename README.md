@@ -3,9 +3,26 @@
 Framework de ingeniería asistida por IA con **18 agentes, 57 Skills únicas y 8 workflows** para proyectos web, móviles, desktop, backend, datos, IA, videojuegos, XR y e-commerce.
 
 ## Objetivo
-El usuario trabaja con el asistente que ya utiliza en su IDE, editor, terminal o plataforma. Ese asistente asume el rol de **Director**, interpreta la solicitud, inspecciona el repositorio, selecciona especialistas y Skills, orquesta la ejecución y consolida resultados.
+El usuario trabaja con el asistente que prefiera. Ese asistente asume el rol de **Director**, inspecciona el proyecto, selecciona especialistas y Skills, coordina la implementación y verifica resultados.
 
-El framework no exige un motor ejecutable propio. La delegación paralela, memoria, ejecución de herramientas y aprobaciones dependen de las capacidades del asistente anfitrión. Si no existen subagentes reales, el Director coordina el trabajo secuencialmente y lo informa con transparencia.
+## Integración con asistentes e IDEs
+La guía principal está en **[docs/integrations/README.md](docs/integrations/README.md)**. Incluye instrucciones actualizadas y un prompt base por asistente para:
+- VS Code + GitHub Copilot.
+- Visual Studio + GitHub Copilot.
+- OpenAI Codex.
+- Claude Code.
+- Cursor.
+- Gemini CLI.
+- JetBrains Junie, incluido Android Studio.
+- Windsurf / Devin Local.
+- Cline.
+- Roo Code.
+- Continue.
+- Aider.
+- Zed.
+- Otros IDEs sin adaptador nativo.
+
+Cada guía describe rutas de configuración, cómo activar al Director, capacidades nativas, limitaciones y prompt para iniciar un proyecto.
 
 ## Estructura
 - AGENTS.md: reglas globales y protocolo de orquestación.
@@ -13,32 +30,23 @@ El framework no exige un motor ejecutable propio. La delegación paralela, memor
 - .agents/skills/: 57 Skills organizadas por dominio.
 - .agents/workflows/: 8 procesos reutilizables.
 - .agents/runtime/: especificación de arquitectura para un runtime opcional.
-- adapters/: guía y prompt universal de integración.
-- docs/IDE-COMPATIBILITY.md: estrategia y matriz de portabilidad.
-- CLAUDE.md, GEMINI.md, .cursor/, .github/ y .junie/: adaptadores incluidos para hosts compatibles.
+- docs/integrations/: guías y prompts por asistente.
+- adapters/: prompt universal y guía de adaptación.
 - templates/: solicitudes, handoffs, ADR y pull requests.
 - scripts/: validaciones del framework.
 
 ## Inicio rápido
-1. Copia AGENTS.md y la carpeta completa .agents/ a la raíz del proyecto.
-2. Copia también el adaptador nativo del asistente que uses, si corresponde.
-3. Abre el proyecto en el IDE o entorno.
-4. Verifica que el asistente lea las instrucciones.
-5. Activa el Director con el prompt de adapters/README.md.
-6. Aprueba el plan antes de cambios amplios o destructivos.
-
-## Portabilidad
-El núcleo común es Markdown + rutas + convenciones. Hay adaptadores para Copilot, Codex, Cursor, Claude Code, Gemini CLI y Junie. Para otros entornos, consulta docs/IDE-COMPATIBILITY.md y configura el formato nativo correspondiente.
-
-No existe un formato único que garantice que todos los IDEs carguen Skills, subagentes y herramientas de la misma manera. MCP facilita interoperabilidad de herramientas, no delegación universal.
-
-## Validación
-Ejecuta desde la raíz: python scripts/validate_framework.py
-
-Comprueba estructura, inventario y referencias documentales. No ejecuta agentes ni prueba aplicaciones externas.
+1. Copia AGENTS.md y .agents/ a la raíz de tu proyecto.
+2. Abre docs/integrations/README.md.
+3. Sigue la guía del asistente que vas a utilizar.
+4. Combina las instrucciones con cualquier configuración existente, sin sobrescribirla.
+5. Pega el prompt base de esa guía y describe qué quieres crear.
 
 ## Alcance honesto
-Este repositorio proporciona perfiles, instrucciones, Skills, workflows y adaptadores. No incluye todavía un runtime autónomo propio. El Director orquesta usando las capacidades del asistente anfitrión.
+Los perfiles Markdown son instrucciones y contratos de rol. La delegación paralela depende de que el asistente anfitrión soporte subagentes reales. Si no los soporta, el Director coordina secuencialmente. El framework no incluye un runtime autónomo propio.
 
-## Seguridad y licencia
-Nunca subas secretos. No asumas licencia de código abierto hasta que el repositorio incluya una licencia explícita.
+## Validación
+Ejecuta desde la raíz: `python scripts/validate_framework.py`. La validación comprueba estructura e inventario documental, no certifica compatibilidad funcional con cada asistente.
+
+## Seguridad
+Nunca subas secretos. No habilites permisos irrestrictos. Solicita aprobación para operaciones destructivas, externas o productivas.

@@ -1,67 +1,85 @@
-# Portabilidad de AI DEV TEAM entre IDEs y asistentes
+# Compatibilidad e integración de AI DEV TEAM
 
-## Objetivo
-Usar el mismo equipo de agentes con el asistente que el usuario prefiera, sin depender de un único editor, proveedor de modelos o runtime propio.
+## Propósito
+Usar el mismo equipo de ingeniería con distintos asistentes, IDEs y entornos. El núcleo portable está formado por `AGENTS.md`, `.agents/agents/`, `.agents/skills/` y `.agents/workflows/`. Cada host requiere su propio mecanismo de configuración.
 
-## Fuente canónica
-- AGENTS.md: reglas y protocolo.
-- .agents/agents/: perfiles.
-- .agents/skills/: procedimientos técnicos.
-- .agents/workflows/: procesos.
-- templates/: formatos de tareas y handoffs.
+## Guías detalladas y prompts base
+La fuente de verdad de las integraciones es [docs/integrations/README.md](integrations/README.md). Hay una guía independiente para VS Code/Copilot, Visual Studio/Copilot, Codex, Claude Code, Cursor, Gemini CLI, JetBrains Junie/Android Studio, Windsurf/Devin Local, Cline, Roo Code, Continue, Aider, Zed y un procedimiento genérico.
 
-El asistente anfitrión lee esta fuente y asume el rol Director. Los adaptadores son archivos nativos del host que apuntan a esa fuente.
+Cada guía incluye rutas, fragmentos de configuración, activación, prompt para construir proyectos y comprobaciones. Esta documentación se investigó con fuentes oficiales el 9 de noviembre de 2026. Como los productos cambian con frecuencia, consulta la documentación enlazada antes de copiar configuraciones a versiones futuras.
 
-## Adaptadores implementados en este repositorio
-| Host | Archivo | Estado |
-|---|---|---|
-| GitHub Copilot (VS Code / Visual Studio / JetBrains con Copilot) | .github/copilot-instructions.md | Archivo creado; validar en cada host |
-| OpenAI Codex | AGENTS.md | Convención de instrucciones |
-| Cursor | AGENTS.md y .cursor/rules/ai-dev-team.mdc | Archivos creados |
-| Claude Code | CLAUDE.md | Archivo creado |
-| Gemini CLI | GEMINI.md | Archivo creado |
-| Junie | .junie/AGENTS.md | Archivo creado |
+## Matriz de integración
 
-La existencia del archivo no certifica que una versión específica lo cargue correctamente. Ejecutar checklist de humo en la instalación real.
+| Host | Mecanismo principal | Skills | Delegación |
+|---|---|---|---|
+| VS Code + Copilot | `.github/copilot-instructions.md` o `AGENTS.md` | Agent Skills, si el harness lo admite | Agentes personalizados según versión |
+| Visual Studio + Copilot | Instrucciones de repositorio soportadas por la versión | Depende del host | Depende del host |
+| OpenAI Codex | `AGENTS.md` | `.agents/skills/` | Subagentes según producto/configuración |
+| Claude Code | `CLAUDE.md`, `.claude/rules/` | `.claude/skills/` | `.claude/agents/` |
+| Cursor | `AGENTS.md`, `.cursor/rules/*.mdc` | `.agents/skills/` | `.cursor/agents/` |
+| Gemini CLI | `GEMINI.md`, `.gemini/settings.json` | Agent Skills | Subagentes nativos según versión |
+| JetBrains Junie | `AGENTS.md`, `.junie/AGENTS.md` según host | Verificar versión | Verificar versión |
+| Devin Local | `AGENTS.md`, `.devin/rules/` | `.agents/skills/` | Subagentes y plugins |
+| Windsurf Cascade legado | Reglas y workflows heredados | Legacy | Legacy |
+| Cline | `.clinerules/` o `.cline/rules/`, `AGENTS.md` | Consultar perfiles/Skills desde archivos | No asumir perfiles como subagentes |
+| Roo Code | `.roomodes`, modos personalizados | Consultar desde `.agents/` según acceso | Tareas delegadas según herramientas/modos |
+| Continue | `.continue/rules/`, `config.yaml` | Consultar desde archivos | No asumir subagentes |
+| Aider | `--read`, `.aider.conf.yml` | Consultar desde archivos | No es orquestador multiagente nativo |
+| Zed | Agent Profiles y settings | Consultar desde archivos cuando el agente tenga acceso | Depende de agente externo/ACP |
 
-## Familias adicionales
-Visual Studio, JetBrains IDEs, Android Studio, Eclipse, NetBeans, Xcode, Windsurf, Zed, Cline, Roo Code, Continue, Aider, terminales y entornos remotos. Si el host no tiene adaptador implementado, se configura su archivo de instrucciones nativo o se utiliza el prompt universal de adapters/README.md.
+La tabla expresa el mecanismo documentado y no una certificación funcional realizada por el usuario. Un agente que puede leer un perfil no necesariamente lo ejecuta como subagente independiente.
 
-## Niveles de compatibilidad
-A. Instrucciones: carga AGENTS.md o un archivo nativo.
-B. Skills: descubre o consulta archivos SKILL.md bajo demanda.
-C. Herramientas: terminal, filesystem, Git, navegador o APIs con permisos.
-D. Subagentes: delega agentes independientes y recibe resultados.
-E. Orquestación avanzada: memoria persistente, estado, cancelación, ejecución aislada y auditoría.
+## Niveles de capacidad
 
-Un nivel no implica los siguientes. Muchos entornos funcionan en A-C. D-E dependen de producto, versión, configuración y permisos.
+A. **Instrucciones:** el host carga reglas de proyecto.  
+B. **Skills:** el host descubre o puede leer procedimientos bajo demanda.  
+C. **Herramientas:** dispone de filesystem, terminal, Git, navegador o APIs con permisos.  
+D. **Subagentes:** crea agentes independientes y recibe resultados.  
+E. **Orquestación avanzada:** estado persistente, cancelación, sandbox y auditoría.
 
-## Estrategia
+No inferir un nivel por el nombre del modelo ni del IDE. Verificarlo en la instalación concreta.
+
+## Principios de integración
+
 - Mantener un único núcleo canónico.
-- Añadir archivos nativos solo cuando el host los necesite.
-- No sobrescribir configuraciones existentes.
-- Consultar documentación oficial vigente antes de crear nuevos adaptadores.
-- Cargar Skills bajo demanda.
-- Usar MCP solo cuando el host lo soporte y exista un servidor confiable.
-- Delegar solo si hay subagentes reales.
-- Mantener pruebas de instalación y actualización.
+- Crear adaptadores nativos mínimos, no copias divergentes de todo el framework.
+- No sobrescribir archivos de configuración existentes.
+- Cargar solo las Skills relevantes para ahorrar contexto.
+- MCP conecta herramientas externas; no sustituye la delegación.
+- Respetar permisos, confirmaciones y aislamiento del host.
+- No simular subagentes, comandos ni pruebas.
+- Verificar documentación oficial y versión instalada antes de actualizar una guía.
 
-## Checklist por host
-- [ ] Producto, versión y sistema operativo.
-- [ ] Archivo nativo y método de carga confirmados.
-- [ ] AGENTS.md y Director cargados.
-- [ ] Skills pertinentes consultables.
-- [ ] Herramientas probadas con permisos mínimos.
-- [ ] Subagentes probados realmente o marcados no disponibles.
-- [ ] Configuración previa preservada.
-- [ ] Instalación, actualización y desinstalación documentadas.
-- [ ] Pruebas de humo reproducibles.
+## Checklist de comprobación para el usuario
 
-## Documentación oficial de referencia
-- VS Code custom instructions: https://code.visualstudio.com/docs/agent-customization/custom-instructions
-- Copilot custom instructions: https://docs.github.com/en/copilot/how-tos/copilot-in-your-ide/customize-copilot/configure-custom-instructions/add-repository-instructions-in-your-ide
-- Cursor rules: https://prod.cursor.com/docs/rules
-- Gemini CLI GEMINI.md: https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/gemini-md.md
-- Junie guidelines: https://junie.jetbrains.com/docs/guidelines-and-memory.html
+- [ ] El asistente abre el workspace correcto.
+- [ ] Carga las instrucciones de AI DEV TEAM.
+- [ ] Puede leer `.agents/agents/director.md`.
+- [ ] Puede localizar las Skills relevantes.
+- [ ] Declara qué herramientas tiene habilitadas.
+- [ ] Si afirma delegar, se observa una ejecución real de subagente.
+- [ ] Las acciones de escritura y terminal requieren los permisos esperados.
+- [ ] Puede ejecutar una tarea pequeña y reportar resultados verificables.
 
-Revisar estas fuentes periódicamente porque los formatos y capacidades evolucionan.
+## Referencias oficiales
+
+- VS Code: https://code.visualstudio.com/docs/agent-customization/custom-instructions
+- VS Code Skills: https://code.visualstudio.com/docs/agent-customization/agent-skills
+- Codex: https://learn.chatgpt.com/docs/customization/overview
+- Claude Code subagents: https://code.claude.com/docs/en/sub-agents
+- Claude Code Skills: https://code.claude.com/docs/en/skills
+- Cursor rules: https://cursor.com/docs/rules
+- Cursor Skills: https://cursor.com/docs/skills
+- Cursor subagents: https://cursor.com/docs/subagents
+- Gemini CLI Skills: https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/skills.md
+- Gemini CLI subagents: https://github.com/google-gemini/gemini-cli/blob/main/docs/core/subagents.md
+- Junie: https://junie.jetbrains.com/docs/guidelines-and-memory.html
+- Devin Local: https://docs.devin.ai/desktop/devin-local/customizations
+- Cline: https://docs.cline.bot/customization/cline-rules
+- Roo Code: https://docs.roocode.com/features/custom-modes
+- Continue: https://docs.continue.dev/customize/rules
+- Aider: https://aider.chat/docs/config/options.html
+- Zed profiles: https://zed.dev/docs/ai/agent-profiles
+
+## Nota sobre Windsurf
+La documentación actual de Devin identifica Cascade como agente legado de Devin Desktop y documenta Devin Local como agente actual. No diseñar nuevas instalaciones basadas exclusivamente en workflows antiguos de Cascade. Consulta [la guía Windsurf/Devin Local](integrations/windsurf-devin-local.md).
