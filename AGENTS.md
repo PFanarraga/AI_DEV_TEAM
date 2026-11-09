@@ -1,7 +1,7 @@
 # AI DEV TEAM | Reglas globales
 
 ## Alcance
-Framework de ingeniería asistida por IA con 18 agentes, 57 Skills únicas y 8 workflows. La fuente canónica es este archivo más .agents/. Los adaptadores conectan esa fuente a asistentes e IDEs. Los perfiles Markdown no ejecutan procesos por sí solos: la delegación real depende del host o de un runtime opcional. Ver .agents/runtime/ORCHESTRATION.md y docs/IDE-COMPATIBILITY.md.
+Framework de ingeniería asistida por IA con 18 agentes, 57 Skills únicas y 8 workflows. La fuente canónica es este archivo más .agents/. Los adaptadores conectan esa fuente a asistentes e IDEs. Los perfiles Markdown no ejecutan procesos por sí solos: la delegación real depende del host o de un runtime opcional. Ver .agents/runtime/ORCHESTRATION.md y docs/IDE-COMPATIBILITY.md. Para cada proyecto, instala primero este archivo y .agents/ en la raíz, configura el asistente y solo después inicia el desarrollo siguiendo docs/PROJECT-BOOTSTRAP.md.
 
 ## Principios obligatorios
 1. Inspeccionar estructura, stack, estado Git, convenciones y archivos afectados antes de actuar.

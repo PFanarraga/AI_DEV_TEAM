@@ -3,15 +3,25 @@
 **Investigación documental:** 9 de noviembre de 2026.  
 **Objetivo:** instalar el mismo equipo AI DEV TEAM en el asistente que el usuario elija, sin obligarlo a usar un IDE, proveedor o motor propio.
 
-## Antes de instalar
+## Orden obligatorio de uso
 
-1. Abre el repositorio del proyecto que quieras construir.
-2. Copia desde AI_DEV_TEAM el archivo `AGENTS.md` y la carpeta `.agents/` a la raíz de ese proyecto.
-3. Abre la guía específica del asistente.
-4. Aplica únicamente los archivos y configuraciones indicados para ese host.
-5. Si ya existen archivos de instrucciones, combina el contenido. No los sobrescribas.
-6. Pega el prompt base de esa guía en una conversación nueva.
-7. Comprueba que el asistente leyó las instrucciones y pudo localizar el perfil Director y las Skills.
+La integración se hace en dos fases separadas. No empieces a desarrollar el producto durante la primera fase.
+
+1. **Instala el núcleo en el proyecto:** copia `AGENTS.md` y la carpeta `.agents/` completa a la raíz del proyecto. No copies el repositorio entero ni su carpeta `.git/`. Consulta [la guía de instalación paso a paso](../PROJECT-BOOTSTRAP.md).
+2. **Configura el asistente:** elige una guía de esta página y utiliza [Prompt 1: configurar el asistente](../../prompts/01-configure-assistant.md). El asistente debe crear o adaptar únicamente su configuración nativa, sin sobrescribir reglas existentes.
+3. **Verifica:** confirma lectura del núcleo, Skills y Director; comprueba las capacidades reales del host y sus permisos.
+4. **Inicia el proyecto:** utiliza [Prompt 2: iniciar un proyecto](../../prompts/02-start-project.md) o el prompt de inicio incluido en la guía específica. La configuración debe estar terminada antes de esta fase.
+
+### Instalación del núcleo
+
+Desde el repositorio AI_DEV_TEAM puedes usar el instalador:
+
+```bash
+python scripts/install_ai_dev_team.py --target "/ruta/al/proyecto" --dry-run
+python scripts/install_ai_dev_team.py --target "/ruta/al/proyecto"
+```
+
+El instalador copia solo `AGENTS.md` y `.agents/`, preserva archivos idénticos, detecta conflictos y nunca sobrescribe por defecto. Si ya existe contenido, revisa los conflictos antes de combinar.
 
 ## Guías
 
@@ -43,10 +53,6 @@ El asistente principal debe:
 - Si no hay subagentes, coordinar perfiles secuencialmente y decirlo.
 - Implementar, probar, revisar el diff y entregar evidencias reales.
 
-## Prompt base universal
-
-Cada guía contiene una variante adaptada a su asistente. El usuario solo debe completar la descripción de su idea. El prompt sirve para aplicaciones web, móviles, desktop, APIs, SaaS, automatizaciones, videojuegos, herramientas internas, IA y otros productos de software.
-
 ## Reglas de compatibilidad
 
 - `AGENTS.md` y `.agents/skills/` son el núcleo compartido, pero cada host tiene su propio mecanismo de descubrimiento.
@@ -66,10 +72,10 @@ Mantén el modo de aprobación del host. No actives permisos irrestrictos ni eje
 - [Codex: customization](https://learn.chatgpt.com/docs/customization/overview)
 - [Claude Code: subagents](https://code.claude.com/docs/en/sub-agents)
 - [Claude Code: skills](https://code.claude.com/docs/en/skills)
+- [Cursor: rules](https://cursor.com/docs/skills)
 - [Cursor: rules](https://cursor.com/docs/rules)
-- [Cursor: Agent Skills](https://cursor.com/docs/skills)
 - [Cursor: subagents](https://cursor.com/docs/subagents)
-- [Gemini CLI: skills](https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/skills.md)
+- [Gemini CLI: Skills](https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/skills.md)
 - [Gemini CLI: subagents](https://github.com/google-gemini/gemini-cli/blob/main/docs/core/subagents.md)
 - [Gemini CLI: settings](https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/settings.md)
 - [Junie: guidelines and memory](https://junie.jetbrains.com/docs/guidelines-and-memory.html)

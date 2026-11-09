@@ -21,6 +21,10 @@ def main() -> None:
         ROOT / "adapters" / "README.md",
         ROOT / "docs" / "IDE-COMPATIBILITY.md",
         ROOT / "docs" / "integrations" / "README.md",
+        ROOT / "docs" / "PROJECT-BOOTSTRAP.md",
+        ROOT / "prompts" / "01-configure-assistant.md",
+        ROOT / "prompts" / "02-start-project.md",
+        ROOT / "scripts" / "install_ai_dev_team.py",
         ROOT / "templates" / "agent-task.md",
         ROOT / "CLAUDE.md", ROOT / "GEMINI.md",
         ROOT / ".github" / "copilot-instructions.md",
@@ -69,6 +73,16 @@ def main() -> None:
         if guide.name not in index:
             fail(f"Integration index missing {guide.name}")
 
+    bootstrap = (ROOT / "docs" / "PROJECT-BOOTSTRAP.md").read_text(encoding="utf-8")
+    for required_text in ("AGENTS.md", ".agents/", "Prompt 1", "Prompt 2", "--dry-run"):
+        if required_text not in bootstrap:
+            fail(f"Bootstrap guide missing required content: {required_text}")
+
+    for prompt_name in ("01-configure-assistant.md", "02-start-project.md"):
+        prompt = (ROOT / "prompts" / prompt_name).read_text(encoding="utf-8")
+        if "AI DEV TEAM" not in prompt or "INSTRUCCIONES" not in prompt and "INSTRUCCIONES PARA EL DIRECTOR" not in prompt:
+            fail(f"Prompt missing required instructions: prompts/{prompt_name}")
+
     for filename in ("AGENTS.md", "README.md", "TUTORIAL_MAESTRO_AI_DEV_TEAM.md"):
         path = ROOT / filename
         if not path.is_file() or ".agents/" not in path.read_text(encoding="utf-8"):
@@ -80,6 +94,7 @@ def main() -> None:
     print(f"Workflows: {len(workflows)}")
     print(f"Assistant integration guides: {len(guides)}")
     print("Assistant base prompts: OK")
+    print("Project bootstrap, two-stage prompts and safe installer: OK")
     print("Agent Skill references: OK")
 
 

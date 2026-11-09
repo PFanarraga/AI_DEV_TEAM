@@ -3,6 +3,10 @@
 ## Propósito
 Usar el mismo equipo de ingeniería con distintos asistentes, IDEs y entornos. El núcleo portable está formado por `AGENTS.md`, `.agents/agents/`, `.agents/skills/` y `.agents/workflows/`. Cada host requiere su propio mecanismo de configuración.
 
+## Secuencia de instalación y configuración
+
+En cada proyecto instala primero `AGENTS.md` y `.agents/` completa en la raíz. No copies el repositorio entero ni `.git/`. Usa el instalador seguro `python scripts/install_ai_dev_team.py --target "/ruta/al/proyecto" --dry-run` y luego sin `--dry-run`, o copia manualmente. Después configura el host con [Prompt 1](../prompts/01-configure-assistant.md), verifica las capacidades y finalmente inicia el desarrollo con [Prompt 2](../prompts/02-start-project.md). Consulta [la guía completa](PROJECT-BOOTSTRAP.md). La instalación nunca debe sobrescribir archivos existentes.
+
 ## Guías detalladas y prompts base
 La fuente de verdad de las integraciones es [docs/integrations/README.md](integrations/README.md). Hay una guía independiente para VS Code/Copilot, Visual Studio/Copilot, Codex, Claude Code, Cursor, Gemini CLI, JetBrains Junie/Android Studio, Windsurf/Devin Local, Cline, Roo Code, Continue, Aider, Zed y un procedimiento genérico.
 
